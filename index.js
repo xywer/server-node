@@ -13,16 +13,15 @@
 //  manejo de servidores HTTP que provee de
 //plugins de alto rendimiento conocidos como middleware.
 //---------VARIABLES GLOBALES----------
-
-var port_listen = 6969;
-var port_mysql = 3306;
-var puerto_io = 3000;
 //----------ASIGNAR LA CONFIGURACION DE LA BDD(NOMBRE Y PUERTO Y PASS)---------
 var params_bdd = {user: "pekesc5_meetclic", password: "meetclic@", host: "creativeweb.com.ec", port: port_mysql, database: "pekesc5_xywer"};
 //var params_bdd = {user: "pekesc5_meetclic", password: "meetclic@", host: "creativeweb.com.ec", port: port_mysql, database: "pekesc5_lady"};
 //*********************MYSQL*****************
 //-------------------INIT MODULOS A UTILIZAR-------------
 //MODULO DE NODE JS PARA LA CONECCION DE LA BDD DE MYSQL
+var port_listen = 6969;
+var port_mysql = 3306;
+var puerto_io = 3000;
 var mysql = require('mysql');//para la comunicacion con la bdd 
 var express = require('express')//EL ESL L ENCARGADO DE LA COMUNCION DE URLS 
         , cors = require('cors')//EL NOS FACILITA LA COMUNICACION A ESAS URLS  ACCESO A ESA URL
@@ -39,6 +38,27 @@ var entidad_data_id = 1;//dond s almacenara la informacion dlos usuaiors
 //    ----TABLAS A GESTIONAR---
 var cuenta_persona = "cuenta_persona";//children
 var persona = "persona";//parent
+
+var port_procesa = process.env.PORT;
+console.log("puerto q procesa", port_procesa);
+
+app.set('port', (port_listen));
+
+app.use(express.static(__dirname + '/public'));
+
+// views is directory for all template files
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+app.get('/', function (request, response) {
+    response.render('pages/index');
+});
+
+app.listen(app.get('port'), function () {
+    console.log('Node app is running on port', app.get('port'));
+});
+
+//---------INIT METODOS DL SISTEMA--
 app.get('/createPersonaInformacion', function (req, res, next) {
     var result = [];
 
@@ -106,7 +126,11 @@ app.get('/personaInformacionAll', function (req, res, next) {
     });
     console.log("obtener informacion");
 });
+
 //---END PERSONA--
+app.get('/api', function (req, res) {
+    res.send('Admin Homepage');
+});
 connection.connect(function (err) {
     if (err) {
         console.log('Error connecting to Db');
@@ -117,20 +141,12 @@ connection.connect(function (err) {
     }
 
 });
-
-
-
-app.listen(port_listen, function () {
-    console.log('CORS-enabled web server listening on port ' + port_listen);
-});
-app.get('/api', function (req, res) {
-    res.send('Admin Homepage');
-});
-//-------NEWS--------
+//---------END METODOS DL SISTEMA--
+//------------ init SOCKETS CONFIGURACION--//-------NEWS--------
 var server_user = [];
 var clients = [];
 var group_leader = [];
-//--------------------------SOCKET--------
+//------------ END SOCKETS CONFIGURACION--//-------NEWS--------
 io.on('connection', function (socket) {
     console.log("ntro al sokec");
 //    ---persona agregada--

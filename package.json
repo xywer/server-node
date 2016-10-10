@@ -1,7 +1,7 @@
 {
-    "name": "Node Server",
+    "name": "node-js-getting-started",
     "version": "0.2.5",
-    "description": "Ejemplo para poder Realizar App X",
+    "description": "A sample Node.js app using Express 4",
     "engines": {
         "node": "5.9.1"
     },
@@ -12,15 +12,14 @@
     "dependencies": {
         "ejs": "2.4.1",
         "express": "4.13.3",
+        "mysql": "*",
         "cors": "*",
-        "mysql": "*"
+        "socket.io": "*"
     },
-  
     "keywords": [
         "node",
         "heroku",
-        "express",
-        "cors"
+        "express"
     ],
     "license": "MIT"
 }
