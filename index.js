@@ -19,7 +19,7 @@ var params_bdd = {user: "pekesc5_meetclic", password: "meetclic@", host: "creati
 //*********************MYSQL*****************
 //-------------------INIT MODULOS A UTILIZAR-------------
 //MODULO DE NODE JS PARA LA CONECCION DE LA BDD DE MYSQL
-var port_listen = 6969;
+var port_listen = 5000;
 var port_mysql = 3306;
 var puerto_io = 3000;
 var mysql = require('mysql');//para la comunicacion con la bdd 
@@ -31,7 +31,7 @@ var io = require('socket.io').listen(puerto_io);//REALIZA UN PUENTE ENTRE TU APP
 //-------------------END MODULOS A UTILIZAR-------------
 
 //--------CONECCCION DE LA BDD--------
-var connection = mysql.createConnection(params_bdd);
+//var connection = mysql.createConnection(params_bdd);
 //--------PERSONA----
 //--------VARIABLES GLOBALES DE TABLAS--
 var entidad_data_id = 1;//dond s almacenara la informacion dlos usuaiors 
@@ -39,10 +39,10 @@ var entidad_data_id = 1;//dond s almacenara la informacion dlos usuaiors
 var cuenta_persona = "cuenta_persona";//children
 var persona = "persona";//parent
 
-var port_procesa = process.env.PORT;
-console.log("puerto q procesa", port_procesa);
+//var port_procesa = process.env.PORT;
+//console.log("puerto q procesa", port_procesa);
 
-app.set('port', (port_listen));
+app.set('port', 5000);
 
 app.use(express.static(__dirname + '/public'));
 
@@ -131,16 +131,16 @@ app.get('/personaInformacionAll', function (req, res, next) {
 app.get('/api', function (req, res) {
     res.send('Admin Homepage');
 });
-connection.connect(function (err) {
-    if (err) {
-        console.log('Error connecting to Db');
-        return;
-    } else {
-
-        console.log('Connection established');
-    }
-
-});
+//connection.connect(function (err) {
+//    if (err) {
+//        console.log('Error connecting to Db');
+//        return;
+//    } else {
+//
+//        console.log('Connection established');
+//    }
+//
+//});
 //---------END METODOS DL SISTEMA--
 //------------ init SOCKETS CONFIGURACION--//-------NEWS--------
 var server_user = [];
